@@ -1,112 +1,52 @@
-<p align="center">
-    <img width="248" height="250" src="https://raw.githubusercontent.com/python-pillow/pillow-logo/main/pillow-logo-248x250.png" alt="Pillow logo">
-</p>
+from PIL import Image, ImageDraw, ImageFont
 
-# Pillow
+# Load the user's photo (replace "image1.jpg" with the actual path to the photo)
+photo_path = "image1.jpg"  # Save the provided image as "image1.jpg" in your working directory
+photo = Image.open(photo_path).resize((110, 130))
 
-## Python Imaging Library (Fork)
+# Create the base license image
+width, height = 600, 350
+background_color = (225, 240, 255)
+img = Image.new('RGB', (width, height), color=background_color)
+draw = ImageDraw.Draw(img)
 
-Pillow is the friendly PIL fork by [Jeffrey A. Clark and
-contributors](https://github.com/python-pillow/Pillow/graphs/contributors).
-PIL is the Python Imaging Library by Fredrik Lundh and contributors.
-As of 2019, Pillow development is
-[supported by Tidelift](https://tidelift.com/subscription/pkg/pypi-pillow?utm_source=pypi-pillow&utm_medium=readme&utm_campaign=enterprise).
+# Fonts
+try:
+    font = ImageFont.truetype("arial.ttf", 18)
+    font_bold = ImageFont.truetype("arialbd.ttf", 22)
+except:
+    font = ImageFont.load_default()
+    font_bold = font
 
-<table>
-    <tr>
-        <th>docs</th>
-        <td>
-            <a href="https://pillow.readthedocs.io/?badge=latest"><img
-                alt="Documentation Status"
-                src="https://readthedocs.org/projects/pillow/badge/?version=latest"></a>
-        </td>
-    </tr>
-    <tr>
-        <th>tests</th>
-        <td>
-            <a href="https://github.com/python-pillow/Pillow/actions/workflows/lint.yml"><img
-                alt="GitHub Actions build status (Lint)"
-                src="https://github.com/python-pillow/Pillow/workflows/Lint/badge.svg"></a>
-            <a href="https://github.com/python-pillow/Pillow/actions/workflows/test.yml"><img
-                alt="GitHub Actions build status (Test Linux and macOS)"
-                src="https://github.com/python-pillow/Pillow/workflows/Test/badge.svg"></a>
-            <a href="https://github.com/python-pillow/Pillow/actions/workflows/test-windows.yml"><img
-                alt="GitHub Actions build status (Test Windows)"
-                src="https://github.com/python-pillow/Pillow/workflows/Test%20Windows/badge.svg"></a>
-            <a href="https://github.com/python-pillow/Pillow/actions/workflows/test-mingw.yml"><img
-                alt="GitHub Actions build status (Test MinGW)"
-                src="https://github.com/python-pillow/Pillow/workflows/Test%20MinGW/badge.svg"></a>
-            <a href="https://github.com/python-pillow/Pillow/actions/workflows/test-cygwin.yml"><img
-                alt="GitHub Actions build status (Test Cygwin)"
-                src="https://github.com/python-pillow/Pillow/workflows/Test%20Cygwin/badge.svg"></a>
-            <a href="https://github.com/python-pillow/Pillow/actions/workflows/test-docker.yml"><img
-                alt="GitHub Actions build status (Test Docker)"
-                src="https://github.com/python-pillow/Pillow/workflows/Test%20Docker/badge.svg"></a>
-            <a href="https://github.com/python-pillow/Pillow/actions/workflows/wheels.yml"><img
-                alt="GitHub Actions build status (Wheels)"
-                src="https://github.com/python-pillow/Pillow/workflows/Wheels/badge.svg"></a>
-            <a href="https://app.codecov.io/gh/python-pillow/Pillow"><img
-                alt="Code coverage"
-                src="https://codecov.io/gh/python-pillow/Pillow/branch/main/graph/badge.svg"></a>
-            <a href="https://issues.oss-fuzz.com/issues?q=title:pillow"><img
-                alt="Fuzzing Status"
-                src="https://oss-fuzz-build-logs.storage.googleapis.com/badges/pillow.svg"></a>
-        </td>
-    </tr>
-    <tr>
-        <th>package</th>
-        <td>
-            <a href="https://zenodo.org/badge/latestdoi/17549/python-pillow/Pillow"><img
-                alt="Zenodo"
-                src="https://zenodo.org/badge/17549/python-pillow/Pillow.svg"></a>
-            <a href="https://tidelift.com/subscription/pkg/pypi-pillow?utm_source=pypi-pillow&utm_medium=badge"><img
-                alt="Tidelift"
-                src="https://tidelift.com/badges/package/pypi/pillow?style=flat"></a>
-            <a href="https://pypi.org/project/pillow/"><img
-                alt="Newest PyPI version"
-                src="https://img.shields.io/pypi/v/pillow.svg"></a>
-            <a href="https://pypi.org/project/pillow/"><img
-                alt="Number of PyPI downloads"
-                src="https://img.shields.io/pypi/dm/pillow.svg"></a>
-            <a href="https://www.bestpractices.dev/projects/6331"><img
-                alt="OpenSSF Best Practices"
-                src="https://www.bestpractices.dev/projects/6331/badge"></a>
-        </td>
-    </tr>
-    <tr>
-        <th>social</th>
-        <td>
-            <a href="https://gitter.im/python-pillow/Pillow?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img
-                alt="Join the chat at https://gitter.im/python-pillow/Pillow"
-                src="https://badges.gitter.im/python-pillow/Pillow.svg"></a>
-            <a href="https://fosstodon.org/@pillow"><img
-                alt="Follow on https://fosstodon.org/@pillow"
-                src="https://img.shields.io/badge/publish-on%20Mastodon-595aff.svg"
-                rel="me"></a>
-        </td>
-    </tr>
-</table>
+# Title
+draw.text((20, 18), "Pennsylvania Driver License", fill=(10, 60, 160), font=font_bold)
 
-## Overview
+# Paste the photo
+img.paste(photo, (30, 60))
 
-The Python Imaging Library adds image processing capabilities to your Python interpreter.
+# Details
+details = [
+    ("Name", "martin Lambert"),
+    ("Date of Birth", "1992-05-14"),
+    ("Address", "1234 Main St, Harrisburg, PA 17101"),
+    ("License Number", "29 123 456"),
+    ("Class", "C"),
+    ("Expiration Date", "2029-05-14"),
+    ("Issue Date", "2025-06-11"),
+    ("Sex", "M"),
+    ("Height", "5'-10\""),
+    ("Eye Color", "BLU"),
+    ("Organ Donor", "Yes"),
+]
 
-This library provides extensive file format support, an efficient internal representation, and fairly powerful image processing capabilities.
+y = 60
+for label, value in details:
+    draw.text((160, y), f"{label}:", fill=(0, 0, 0), font=font)
+    draw.text((340, y), value, fill=(0, 0, 0), font=font)
+    y += 26
 
-The core image library is designed for fast access to data stored in a few basic pixel formats. It should provide a solid foundation for a general image processing tool.
+# Footer
+draw.text((20, height - 30), "This is a mock Pennsylvania driver license for testing/UI/demo purposes only.", fill=(70, 70, 70), font=font)
 
-## More information
-
-- [Documentation](https://pillow.readthedocs.io/)
-  - [Installation](https://pillow.readthedocs.io/en/latest/installation/basic-installation.html)
-  - [Handbook](https://pillow.readthedocs.io/en/latest/handbook/index.html)
-- [Contribute](https://github.com/python-pillow/Pillow/blob/main/.github/CONTRIBUTING.md)
-  - [Issues](https://github.com/python-pillow/Pillow/issues)
-  - [Pull requests](https://github.com/python-pillow/Pillow/pulls)
-- [Release notes](https://pillow.readthedocs.io/en/stable/releasenotes/index.html)
-- [Changelog](https://github.com/python-pillow/Pillow/releases)
-  - [Pre-fork](https://github.com/python-pillow/Pillow/blob/main/CHANGES.rst#pre-fork)
-
-## Report a vulnerability
-
-To report a security vulnerability, please follow the procedure described in the [Tidelift security policy](https://tidelift.com/docs/security).
+img.save("mock_pennsylvania_driver_license_with_photo.png")
+print("Mock license image saved as mock_pennsylvania_driver_license_with_photo.png")
